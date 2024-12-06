@@ -7,6 +7,12 @@ import { ColDef } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme 
 
+
+import 'ag-grid-enterprise'; // Import the Enterprise features
+import { LicenseManager } from "ag-grid-enterprise";
+
+LicenseManager.setLicenseKey(process.env.NEXT_PUBLIC_AG_GRID_LICENSE_KEY || '');
+
 const GridComponent = () => {
 
     const [columnDefs, setColumnDefs] = useState<ColDef[]>([
