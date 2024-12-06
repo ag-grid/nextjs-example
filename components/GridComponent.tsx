@@ -10,10 +10,10 @@ import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme
 const GridComponent = () => {
 
     const [columnDefs, setColumnDefs] = useState<ColDef[]>([
-        { field: "athlete"},
-        { field: "age"},
-        { field: "date"},
-        { field: "country"},
+        { field: "athlete", filter: "agTextColumnFilter" },
+        { field: "age", filter: "agNumberColumnFilter" },
+        { field: "date", filter: "agDateColumnFilter" },
+        { field: "country", sortable: false},
         { field: "sport"},
         { field: "gold"},
         { field: "silver"},
