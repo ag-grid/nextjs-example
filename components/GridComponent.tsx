@@ -9,9 +9,9 @@ import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme
 
 
 import 'ag-grid-enterprise'; // Import the Enterprise features
-import { LicenseManager } from "ag-grid-enterprise";
+// import { LicenseManager } from "ag-grid-enterprise";
 
-LicenseManager.setLicenseKey(process.env.NEXT_PUBLIC_AG_GRID_LICENSE_KEY || '');
+// LicenseManager.setLicenseKey(process.env.NEXT_PUBLIC_AG_GRID_LICENSE_KEY || '');
 
 const GridComponent = () => {
 
@@ -43,6 +43,9 @@ const GridComponent = () => {
           <AgGridReact
             rowData={rowData}
             columnDefs={columnDefs}
+            enableCharts={true}  // Enable the Charting features
+            rowSelection="multiple" // Enable multiple row selection
+            cellSelection={true} // Enable cell selection
           />
         </div>
       );
