@@ -16,7 +16,16 @@ import 'ag-grid-enterprise'; // Import the Enterprise features
 const GridComponent = () => {
 
     const [columnDefs, setColumnDefs] = useState<ColDef[]>([
-        { field: "athlete", filter: "agTextColumnFilter" },
+        { 
+          field: "athlete", 
+          filter: "agTextColumnFilter",
+          editable: true,
+          onCellValueChanged: (event) => {
+            console.log(event.data); 
+            // Handle the cell value change event
+            // Here, you can update the data in the server or perform any other action
+          }
+        },
         { field: "age", filter: "agNumberColumnFilter" },
         { field: "date", filter: "agDateColumnFilter" },
         { field: "country", sortable: false},
