@@ -10,10 +10,10 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css"; 
 
 import 'ag-grid-enterprise'; // Import the Enterprise features
-import { LicenseManager } from "ag-grid-enterprise";
+// import { LicenseManager } from "ag-grid-enterprise";
 
 // Set your license key here
-LicenseManager.setLicenseKey(process.env.NEXT_PUBLIC_AG_GRID_LICENSE_KEY || "");
+// LicenseManager.setLicenseKey(process.env.NEXT_PUBLIC_AG_GRID_LICENSE_KEY || "");
 
 ModuleRegistry.registerModules([ServerSideRowModelModule]);
 

@@ -18,9 +18,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // Fetch data from the external API
   const dataResponse = await fetch('https://www.ag-grid.com/example-assets/olympic-winners.json');
-  const olympicData = await dataResponse.json();
+  const olympicData = await dataResponse.json() as any[];
 
-  let rows = [...olympicData];
+  const rows = [...olympicData];
 
   // Sorting logic
   if (reqBody.sortModel && reqBody.sortModel.length > 0) {
