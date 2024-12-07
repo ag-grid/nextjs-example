@@ -77,14 +77,9 @@ const GridComponent = () => {
 
     const onGridReady = useCallback((params: GridReadyEvent) => {
         console.log("Grid ready event received");
-        fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
-          .then((resp) => resp.json())
-          .then((data: any[]) => {
-              // create datasource function that retieves updated data from the server
-              const datasource = getServerSideDatasource();
-              // Register the datasource with the grid
-              params.api!.setGridOption("serverSideDatasource", datasource as any);
-          });
+        const datasource = getServerSideDatasource();
+        // Register the datasource with the grid
+        params.api!.setGridOption("serverSideDatasource", datasource as any);
     }, []);
 
     return (
