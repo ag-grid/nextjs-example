@@ -2,38 +2,57 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AgCharts } from 'ag-charts-react'; // React Chart Component
-import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
-import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
-
+import { AgCharts } from 'ag-charts-react'; 
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
 
 const ChartComponent = () => {
-    const [rowData, setRowData] = useState([]);
-    
-    const [chartOptions, setChartOptions] = useState({
-        data: [rowData],
+    const [rowData, setRowData] = useState<any[]>([]);
+
+    const [chartOptions, setChartOptions] = useState<any>({
+        data: [],
         series: [
-          { type: 'bar', xKey: 'country', yKey: 'total' },
-          { type: "scatter", xKey: "country", yKey: "gold" },
-        ]
+          { 
+            type: 'bar', 
+            xKey: 'country', 
+            yKey: 'total'
+          }
+        ],
     });
 
     useEffect(() => {
-        fetch("https://www.ag-grid.com/example-assets/olympic-winners.json") // Fetch data from server
-            .then(result => result.json()) // Convert to JSON
-            .then(rowData => {
-                setRowData(rowData); // Update state of `rowData`
-            }); // Update state of `rowData`
+        fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
+            .then(result => result.json())
+            .then(data => {
+                setRowData(data); 
+            });
     }, []);
 
     useEffect(() => {
-        if (rowData.length > 0) { // Only update if data is available
-          setChartOptions((prevOptions) => ({
-            ...prevOptions,
-            data: rowData, // Update the data in chartOptions
-          }));
+        if (rowData.length > 0) {
+            // Aggregate total medals by country
+            const countryTotals: Record<string, number> = {};
+            rowData.forEach(d => {
+                const country = d.country;
+                const total = d.total || 0;
+                if (!countryTotals[country]) {
+                    countryTotals[country] = 0;
+                }
+                countryTotals[country] += total;
+            });
+
+            // Convert the aggregated object into an array of {country, total}
+            const aggregatedData = Object.keys(countryTotals).map(country => ({
+                country,
+                total: countryTotals[country]
+            }));
+
+            setChartOptions((prevOptions: any) => ({
+                ...prevOptions,
+                data: aggregatedData
+            }));
         }
-    }, [rowData]); // Re-run this effect when `rowData` changes
+    }, [rowData]);
 
     return (
         <div className="ag-theme-quartz-dark" style={{ height: 750 }}>
